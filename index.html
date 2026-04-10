@@ -425,6 +425,91 @@ tr.row-warning { background: #fffbeb; }
 
 /* Sidebar font unification */
 aside a, .sidebar-nav a, .sidebar a, nav a[href*="rkonfal.github.io"] { font-size: 13px !important; }
+
+/* ── COMPACT OVERRIDES ─────────────────────────── */
+.kpi-card { padding: 12px 14px !important; }
+.kpi-value { font-size: 24px !important; margin: 3px 0 1px !important; }
+.kpi-label { font-size: 11px !important; }
+.kpi-sub { font-size: 11px !important; }
+.kpi-grid { gap: 10px !important; margin-bottom: 18px !important; }
+.section { padding: 16px 18px !important; margin-bottom: 14px !important; }
+.section-title { font-size: 15px !important; margin-bottom: 12px !important; gap: 7px !important; }
+.section-title svg { width: 16px !important; height: 16px !important; }
+.alert-card { padding: 10px 14px !important; margin-bottom: 8px !important; }
+.alert-name { font-size: 13px !important; font-weight: 700; }
+.alert-meta { gap: 10px 18px !important; font-size: 12px !important; }
+.alert-action { margin-top: 6px !important; font-size: 12px !important; }
+.alert-header { margin-bottom: 8px !important; }
+.alert-badge { font-size: 10px !important; padding: 2px 7px !important; }
+.header { margin-bottom: 18px !important; }
+.header h1 { font-size: 20px !important; }
+.header .period { font-size: 12px !important; }
+
+/* Rule / info box */
+.rule-box {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-left: 4px solid #3b82f6;
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-size: 13px;
+  line-height: 1.55;
+  margin-bottom: 0;
+}
+[data-theme="dark"] .rule-box { background: rgba(59,130,246,.1); border-color: rgba(59,130,246,.4); }
+.rule-box strong { color: #1d4ed8; }
+[data-theme="dark"] .rule-box strong { color: #93c5fd; }
+.rule-box .rule-examples { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 6px; }
+.rule-box .rule-ex { background: rgba(59,130,246,.1); border-radius: 6px; padding: 4px 10px; font-size: 12px; }
+
+/* Action recommendations */
+.action-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+.action-product-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.action-product-header {
+  padding: 8px 12px;
+  font-size: 12.5px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.action-product-header.critical-hdr { background: #fee2e2; color: #b91c1c; }
+.action-product-header.warning-hdr { background: #fef3c7; color: #92400e; }
+[data-theme="dark"] .action-product-header.critical-hdr { background: rgba(239,68,68,.2); color: #fca5a5; }
+[data-theme="dark"] .action-product-header.warning-hdr { background: rgba(245,158,11,.2); color: #fcd34d; }
+.action-product-meta { font-size: 11px; opacity: .8; font-weight: 500; }
+.action-list { padding: 10px 12px; display: flex; flex-direction: column; gap: 5px; }
+.action-item {
+  display: flex; align-items: flex-start; gap: 7px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.action-icon { font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+.action-calc { background: var(--bg); border-radius: 6px; padding: 7px 10px; margin-top: 6px; font-size: 11.5px; }
+.action-calc-row { display: flex; justify-content: space-between; gap: 8px; padding: 2px 0; }
+.action-calc-row strong { color: var(--brand); }
+[data-theme="dark"] .action-calc-row strong { color: var(--brand-light); }
+
+/* Bundle table */
+.bundle-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12.5px; }
+.bundle-table thead th {
+  background: var(--brand); color: #fff;
+  padding: 9px 12px; text-align: left;
+  font-size: 11.5px; font-weight: 600;
+  white-space: nowrap;
+}
+.bundle-table thead th:first-child { border-radius: 8px 0 0 0; }
+.bundle-table thead th:last-child { border-radius: 0 8px 0 0; }
+.bundle-table tbody td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.bundle-table tbody tr:hover { filter: brightness(.97); }
+.bundle-table tbody tr:nth-child(even) { background: var(--bg); }
+.fit-pill { background: #dcfce7; color: #166534; border-radius: 12px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
+.nofit-pill { background: #fee2e2; color: #b91c1c; border-radius: 12px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -474,6 +559,14 @@ aside a, .sidebar-nav a, .sidebar a, nav a[href*="rkonfal.github.io"] { font-siz
     <a href="#table">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
       Všechny položky
+    </a>
+    <a href="#actions">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      Doporučené akce
+    </a>
+    <a href="#bundles">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
+      Balíčky Bestseller
     </a>
   </nav>
 
@@ -609,6 +702,62 @@ aside a, .sidebar-nav a, .sidebar a, nav a[href*="rkonfal.github.io"] { font-siz
     </div>
   </section>
 
+
+  <!-- ACTION RECOMMENDATIONS -->
+  <section id="actions" class="section">
+    <div class="section-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      💡 Doporučené akce
+    </div>
+
+    <!-- Rule box 2+1 -->
+    <div class="rule-box" style="margin-bottom:16px">
+      <strong>📋 Pravidlo pro akci 2+1 zdarma:</strong> Hodnota dárku zdarma nesmí překročit <strong>18 %</strong> z celkové hodnoty balíčku (2× cena produktu).<br>
+      <div class="rule-examples">
+        <span class="rule-ex">Balíček za 1 000 Kč → dárek max <strong>180 Kč</strong></span>
+        <span class="rule-ex">Balíček za 500 Kč → dárek max <strong>90 Kč</strong></span>
+        <span class="rule-ex">Balíček za 260 Kč → dárek max <strong>46,80 Kč</strong></span>
+      </div>
+    </div>
+
+    <div style="margin-bottom:10px;font-size:12px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px">🔴 Kritické produkty — okamžitá akce</div>
+    <div class="action-grid" id="action-critical-grid">
+      <div class="empty-state">Načítám…</div>
+    </div>
+
+    <div style="margin:16px 0 10px;font-size:12px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px">🟡 Produkty s varováním — plánovaná akce</div>
+    <div class="action-grid" id="action-warning-grid">
+      <div class="empty-state">Načítám…</div>
+    </div>
+  </section>
+
+  <!-- BESTSELLER BUNDLE TABLE -->
+  <section id="bundles" class="section">
+    <div class="section-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
+      🛍️ Návrhy akcí: Bestseller + dárek s expirací
+    </div>
+    <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:14px">Kup 2× bestseller → dostaneš expirující produkt jako dárek zdarma. Max. hodnota dárku = 18 % z 2× ceny bestselleru.</p>
+    <div class="table-wrap">
+      <table class="bundle-table" id="bundleTable">
+        <thead>
+          <tr>
+            <th>Bestseller</th>
+            <th>Cena</th>
+            <th>Akce 2+1</th>
+            <th>Max dárek (18 %)</th>
+            <th>Navržený dárek (expiruje)</th>
+            <th>Cena dárku</th>
+            <th>Fit?</th>
+          </tr>
+        </thead>
+        <tbody id="bundleBody">
+          <tr><td colspan="7" class="empty-state">Načítám…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
 </main>
 
 <script>
@@ -669,6 +818,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Table
   applyFilters();
+
+  // Action recommendations
+  buildActionRecs(data);
+
+  // Bundle table
+  buildBundleTable(data);
 });
 
 // ============================================================
@@ -917,6 +1072,164 @@ function getPaginationRange(current, total) {
 // ============================================================
 // HELPERS
 // ============================================================
+// ============================================================
+// PRICES & BESTSELLERS
+// ============================================================
+const PRICE_MAP = {
+  '40203':      { price: 85,   label: 'Peeling Broskvový' },
+  '52902/03':   { price: 290,  label: 'Revitalizační maska Lingzhi 3ks' },
+  '52903/03':   { price: 290,  label: 'Omlazující maska Q10 3ks' },
+  '52901/03':   { price: 290,  label: 'Hydratační maska Hyaluronová 3ks' },
+  '52903':      { price: 110,  label: 'Omlazující maska Q10' },
+  '52911':      { price: 125,  label: 'Obnovující maska fullereny & polypeptidy' },
+  '54104':      { price: 99,   label: 'Pleťová beauty maska mořské řasy' },
+  '54105':      { price: 99,   label: 'Pleťová beauty maska granátové jablko' },
+  '54108':      { price: 99,   label: 'Pleťová beauty maska levandulová provence' },
+  '41328/01':   { price: 59,   label: 'Levandulová náplast na nohy 1ks' },
+  '41328/05':   { price: 199,  label: 'Levandulová náplast na nohy 5ks' },
+  '41328/07':   { price: 269,  label: 'Levandulová náplast na nohy 7ks' },
+  '41328/10':   { price: 349,  label: 'Levandulová náplast na nohy 10ks' },
+  '35412-02':   { price: 179,  label: 'Povzbuzující krém pro dokonalá stehna' },
+  '17103':      { price: 149,  label: 'Pleťový krém s cordycepsem a šalvějí' },
+  '12710':      { price: 79,   label: 'Křišťálová kolagenová maska na oční víčka' },
+  '195432':     { price: 120,  label: 'Pektinový kysel s vlochyní a borůvkou' },
+};
+
+const BESTSELLERS = [
+  { name: 'Fytogel Slaviton',              price: 260  },
+  { name: 'Kolagen drink',                 price: 290  },
+  { name: 'Slaviton tablety',              price: 280  },
+  { name: 'Aloe vera 97% gel',             price: 180  },
+  { name: 'Hyaluronový sérum',             price: 240  },
+  { name: 'Detox čaj 20 sáčků',            price: 149  },
+  { name: 'Pleťový krém s Q10',            price: 199  },
+  { name: 'Antioxidačný komplex',          price: 220  },
+  { name: 'Tianshi Morning šejk',          price: 310  },
+  { name: 'Doplněk stravy Cordyceps Plus', price: 350  },
+];
+
+// ============================================================
+// ACTION RECOMMENDATIONS
+// ============================================================
+function buildActionRecs(data) {
+  // Deduplicate by sku_code + risk_level, pick row with max qty
+  const dedup = {};
+  data.forEach(r => {
+    if (r.risk_level !== 'CRITICAL' && r.risk_level !== 'WARNING') return;
+    const key = r.sku_code + '|' + r.risk_level;
+    if (!dedup[key] || r.qty_on_hand > dedup[key].qty_on_hand) dedup[key] = r;
+  });
+
+  const criticals = Object.values(dedup).filter(r => r.risk_level === 'CRITICAL')
+    .sort((a, b) => a.days_until_expiry - b.days_until_expiry);
+  const warnings  = Object.values(dedup).filter(r => r.risk_level === 'WARNING')
+    .sort((a, b) => a.days_until_expiry - b.days_until_expiry);
+
+  document.getElementById('action-critical-grid').innerHTML = criticals.length
+    ? criticals.map(r => actionCard(r, 'critical')).join('')
+    : '<div class="empty-state">Žádné kritické produkty ✓</div>';
+
+  document.getElementById('action-warning-grid').innerHTML = warnings.length
+    ? warnings.map(r => actionCard(r, 'warning')).join('')
+    : '<div class="empty-state">Žádné produkty s varováním ✓</div>';
+}
+
+function actionCard(r, type) {
+  const isCritical = type === 'critical';
+  const hdrClass   = isCritical ? 'critical-hdr' : 'warning-hdr';
+  const daysLeft   = r.days_until_expiry;
+  const qty        = r.qty_on_hand;
+  const weeklySale = r.weekly_sales_est || 20;
+
+  const priceInfo  = PRICE_MAP[r.sku_code];
+  const price      = priceInfo ? priceInfo.price : null;
+
+  const actions = isCritical ? [
+    { icon: '🔖', text: 'Okamžitá sleva <strong>30–50 %</strong> na e-shopu' },
+    { icon: '🎁', text: 'Akce <strong>2+1 zdarma</strong> — přidat do balíčku s bestsellery' },
+    { icon: '📱', text: '<strong>Flash sale</strong> na sociálních sítích (Instagram / Facebook)' },
+    { icon: '🛍️', text: 'Nabídnout jako <strong>dárek k objednávce</strong> nad určitou částku' },
+  ] : [
+    { icon: '⭐', text: '<strong>Zvýraznit na e-shopu</strong> — banner, „Doporučujeme", top pozice' },
+    { icon: '📦', text: 'Zahrnout do <strong>akčních balíčků</strong> s komplementárními produkty' },
+    { icon: '📧', text: '<strong>Emailová kampaň</strong> cílená na zákazníky, kteří produkt kupovali' },
+    { icon: '🔗', text: '<strong>Cross-sell</strong> při nákupu souvisejících produktů' },
+  ];
+
+  // Calculations (only when price is known)
+  let calcHtml = '';
+  if (price) {
+    const discPrice   = Math.round(price * 0.70);
+    const maxGift     = Math.round(price * 2 * 0.18);
+    const daysDouble  = Math.round((qty / (weeklySale * 2)) * 7);
+    calcHtml = `<div class="action-calc">
+      <div class="action-calc-row"><span>Ceníková cena</span><strong>${price.toLocaleString('cs')} Kč</strong></div>
+      <div class="action-calc-row"><span>Sleva 30 % → cena</span><strong>${discPrice.toLocaleString('cs')} Kč</strong></div>
+      <div class="action-calc-row"><span>Max. dárek 2+1 (18 % z 2× ceny)</span><strong>${maxGift.toLocaleString('cs')} Kč</strong></div>
+      <div class="action-calc-row"><span>Odhadovaný prodej při 2× tempu</span><strong>~${daysDouble} dní</strong></div>
+    </div>`;
+  }
+
+  return `<div class="action-product-card">
+    <div class="action-product-header ${hdrClass}">
+      <span>${escHtml(r.sku_name)}</span>
+      <span class="action-product-meta">${qty.toLocaleString('cs')} ks · ${daysLeft}d</span>
+    </div>
+    <div class="action-list">
+      ${actions.map(a => `<div class="action-item"><span class="action-icon">${a.icon}</span><span>${a.text}</span></div>`).join('')}
+      ${calcHtml}
+    </div>
+  </div>`;
+}
+
+// ============================================================
+// BUNDLE TABLE — Bestseller + expiring gift
+// ============================================================
+function buildBundleTable(data) {
+  // Collect unique expiring products (CRITICAL or WARNING) with prices
+  const expiringGifts = [];
+  const seen = new Set();
+  data.forEach(r => {
+    if (r.risk_level !== 'CRITICAL' && r.risk_level !== 'WARNING') return;
+    if (seen.has(r.sku_code)) return;
+    seen.add(r.sku_code);
+    const p = PRICE_MAP[r.sku_code];
+    if (p) expiringGifts.push({ ...r, price: p.price });
+  });
+  expiringGifts.sort((a, b) => a.days_until_expiry - b.days_until_expiry);
+
+  if (!expiringGifts.length) {
+    document.getElementById('bundleBody').innerHTML =
+      '<tr><td colspan="7" class="empty-state">Žádné expirující produkty s ceníkem</td></tr>';
+    return;
+  }
+
+  // For each bestseller, find the best-fit gift (highest price that fits)
+  const rows = BESTSELLERS.map(bs => {
+    const maxGift = Math.round(bs.price * 2 * 0.18);
+    // pick the expiring gift with the highest price that still fits
+    const fits   = expiringGifts.filter(g => g.price <= maxGift);
+    const gift   = fits.length ? fits.reduce((a, b) => b.price > a.price ? b : a) : null;
+    const noFit  = !gift ? expiringGifts.reduce((a, b) => (Math.abs(b.price - maxGift) < Math.abs(a.price - maxGift) ? b : a)) : null;
+
+    const chosen = gift || noFit;
+    const fitOk  = !!gift;
+    const expStr = chosen ? formatDate(chosen.expiry_date) : '—';
+
+    return `<tr>
+      <td><strong>${escHtml(bs.name)}</strong></td>
+      <td class="num">${bs.price.toLocaleString('cs')} Kč</td>
+      <td style="font-size:11.5px;color:var(--text-muted)">2× ${escHtml(bs.name)} + dárek</td>
+      <td class="num"><strong>${maxGift.toLocaleString('cs')} Kč</strong></td>
+      <td style="font-size:12px">${chosen ? escHtml(chosen.sku_name) : '—'}<br><span style="font-size:10.5px;color:var(--text-muted)">exp. ${expStr} · ${chosen ? chosen.qty_on_hand.toLocaleString('cs')+' ks' : ''}</span></td>
+      <td class="num">${chosen ? chosen.price.toLocaleString('cs')+' Kč' : '—'}</td>
+      <td>${fitOk ? '<span class="fit-pill">✓ Vejde se</span>' : '<span class="nofit-pill">✗ Příliš drahý</span>'}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('bundleBody').innerHTML = rows;
+}
+
 function escHtml(str) {
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
@@ -940,7 +1253,7 @@ function toggleSidebar() {
 
 // Highlight active nav link on scroll
 window.addEventListener('scroll', () => {
-  const sections = ['kpi','critical','warning','timeline','table'];
+  const sections = ['kpi','critical','warning','timeline','table','actions','bundles'];
   const links = document.querySelectorAll('.sidebar-nav a');
   let current = '';
   sections.forEach(id => {

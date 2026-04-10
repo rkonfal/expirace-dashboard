@@ -1076,36 +1076,34 @@ function getPaginationRange(current, total) {
 // PRICES & BESTSELLERS
 // ============================================================
 const PRICE_MAP = {
-  '40203':      { price: 85,   label: 'Peeling Broskvový' },
-  '52902/03':   { price: 290,  label: 'Revitalizační maska Lingzhi 3ks' },
-  '52903/03':   { price: 290,  label: 'Omlazující maska Q10 3ks' },
-  '52901/03':   { price: 290,  label: 'Hydratační maska Hyaluronová 3ks' },
-  '52903':      { price: 110,  label: 'Omlazující maska Q10' },
-  '52911':      { price: 125,  label: 'Obnovující maska fullereny & polypeptidy' },
-  '54104':      { price: 99,   label: 'Pleťová beauty maska mořské řasy' },
-  '54105':      { price: 99,   label: 'Pleťová beauty maska granátové jablko' },
-  '54108':      { price: 99,   label: 'Pleťová beauty maska levandulová provence' },
-  '41328/01':   { price: 59,   label: 'Levandulová náplast na nohy 1ks' },
-  '41328/05':   { price: 199,  label: 'Levandulová náplast na nohy 5ks' },
-  '41328/07':   { price: 269,  label: 'Levandulová náplast na nohy 7ks' },
-  '41328/10':   { price: 349,  label: 'Levandulová náplast na nohy 10ks' },
-  '35412-02':   { price: 179,  label: 'Povzbuzující krém pro dokonalá stehna' },
-  '17103':      { price: 149,  label: 'Pleťový krém s cordycepsem a šalvějí' },
-  '12710':      { price: 79,   label: 'Křišťálová kolagenová maska na oční víčka' },
-  '195432':     { price: 120,  label: 'Pektinový kysel s vlochyní a borůvkou' },
+  // Pouze produkty dostupné v katalogu (inStore > 0)
+  '40203':      { price: 85,   label: 'Peeling Broskvový (40203)' },
+  '52902/03':   { price: 290,  label: 'Revitalizační maska Lingzhi 3ks (52902/03)' },
+  // 52903/03 — není v katalogu, vynecháno
+  // 52901/03 — není v katalogu, vynecháno
+  '52903':      { price: 110,  label: 'Omlazující maska Q10 (52903)' },
+  '52911':      { price: 125,  label: 'Obnovující maska fullereny & polypeptidy (52911)' },
+  '54104':      { price: 99,   label: 'Pleťová beauty maska mořské řasy (54104)' },
+  '54105':      { price: 99,   label: 'Pleťová beauty maska granátové jablko (54105)' },
+  '54108':      { price: 99,   label: 'Pleťová beauty maska levandulová provence (54108)' },
+  // 41328/01, /05, /07, /10 — Levandulové náplasti nejsou v katalogu, vynecháno
+  '35412-02':   { price: 179,  label: 'Povzbuzující krém pro dokonalá stehna (35412-02)' },
+  '17103':      { price: 149,  label: 'Pleťový krém s cordycepsem a šalvějí (17103)' },
+  '12710':      { price: 79,   label: 'Křišťálová kolagenová maska na oční víčka (12710)' },
+  '195432':     { price: 120,  label: 'Pektinový kysel s vlochyní a borůvkou (195432)' },
 };
 
 const BESTSELLERS = [
-  { name: 'Fytogel Slaviton',              price: 260  },
-  { name: 'Kolagen drink',                 price: 290  },
-  { name: 'Slaviton tablety',              price: 280  },
-  { name: 'Aloe vera 97% gel',             price: 180  },
-  { name: 'Hyaluronový sérum',             price: 240  },
-  { name: 'Detox čaj 20 sáčků',            price: 149  },
-  { name: 'Pleťový krém s Q10',            price: 199  },
-  { name: 'Antioxidačný komplex',          price: 220  },
-  { name: 'Tianshi Morning šejk',          price: 310  },
-  { name: 'Doplněk stravy Cordyceps Plus', price: 350  },
+  { code: '44402-2', name: 'Fytogel Slaviton',              price: 260  },
+  { code: null,      name: 'Kolagen drink',                 price: 290  },
+  { code: null,      name: 'Slaviton tablety',              price: 280  },
+  { code: null,      name: 'Aloe vera 97% gel',             price: 180  },
+  { code: '16001',   name: 'Hyaluronové sérum na pleť',     price: 240  },
+  { code: null,      name: 'Detox čaj 20 sáčků',            price: 149  },
+  { code: null,      name: 'Pleťový krém s Q10',            price: 199  },
+  { code: null,      name: 'Antioxidačný komplex',          price: 220  },
+  // 'Tianshi Morning šejk' odstraněno — není produkt TianDe
+  { code: null,      name: 'Doplněk stravy Cordyceps Plus', price: 350  },
 ];
 
 // ============================================================
@@ -1172,7 +1170,7 @@ function actionCard(r, type) {
 
   return `<div class="action-product-card">
     <div class="action-product-header ${hdrClass}">
-      <span>${escHtml(r.sku_name)}</span>
+      <span>${escHtml(r.sku_name)}<span style="font-size:10.5px;font-weight:400;opacity:0.75;margin-left:6px">(${escHtml(r.sku_code)})</span></span>
       <span class="action-product-meta">${qty.toLocaleString('cs')} ks · ${daysLeft}d</span>
     </div>
     <div class="action-list">
@@ -1216,12 +1214,14 @@ function buildBundleTable(data) {
     const fitOk  = !!gift;
     const expStr = chosen ? formatDate(chosen.expiry_date) : '—';
 
+    const bsLabel  = bs.code ? `${escHtml(bs.name)} <span style="font-size:10.5px;font-weight:400;opacity:0.7">(${escHtml(bs.code)})</span>` : escHtml(bs.name);
+    const giftLabel = chosen ? `${escHtml(chosen.sku_name)} <span style="font-size:10.5px;font-weight:400;opacity:0.7">(${escHtml(chosen.sku_code)})</span>` : '—';
     return `<tr>
-      <td><strong>${escHtml(bs.name)}</strong></td>
+      <td><strong>${bsLabel}</strong></td>
       <td class="num">${bs.price.toLocaleString('cs')} Kč</td>
-      <td style="font-size:11.5px;color:var(--text-muted)">2× ${escHtml(bs.name)} + dárek</td>
+      <td style="font-size:11.5px;color:var(--text-muted)">2× ${bs.code ? escHtml(bs.name)+' ('+escHtml(bs.code)+')' : escHtml(bs.name)} + dárek</td>
       <td class="num"><strong>${maxGift.toLocaleString('cs')} Kč</strong></td>
-      <td style="font-size:12px">${chosen ? escHtml(chosen.sku_name) : '—'}<br><span style="font-size:10.5px;color:var(--text-muted)">exp. ${expStr} · ${chosen ? chosen.qty_on_hand.toLocaleString('cs')+' ks' : ''}</span></td>
+      <td style="font-size:12px">${giftLabel}<br><span style="font-size:10.5px;color:var(--text-muted)">exp. ${expStr} · ${chosen ? chosen.qty_on_hand.toLocaleString('cs')+' ks' : ''}</span></td>
       <td class="num">${chosen ? chosen.price.toLocaleString('cs')+' Kč' : '—'}</td>
       <td>${fitOk ? '<span class="fit-pill">✓ Vejde se</span>' : '<span class="nofit-pill">✗ Příliš drahý</span>'}</td>
     </tr>`;

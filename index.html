@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Expirace zboží — Diamond Plus</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root {
   --brand: #5C2450;
@@ -279,12 +278,6 @@ body {
   color: var(--danger);
 }
 .alert-action.warn-action { color: #b45309; }
-/* CHART */
-.chart-wrap {
-  position: relative;
-  width: 100%;
-  min-height: 300px;
-}
 /* TABLE */
 .table-controls {
   display: flex;
@@ -554,10 +547,6 @@ aside a, .sidebar-nav a, .sidebar a, nav a[href*="rkonfal.github.io"] { font-siz
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       Varování
     </a>
-    <a href="#timeline">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      Časová osa
-    </a>
     <a href="#table">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
       Všechny položky
@@ -653,16 +642,6 @@ aside a, .sidebar-nav a, .sidebar a, nav a[href*="rkonfal.github.io"] { font-siz
     </div>
   </section>
 
-  <!-- TIMELINE -->
-  <section id="timeline" class="section">
-    <div class="section-title">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      Časová osa — Expirace po měsících (počet kusů)
-    </div>
-    <div class="chart-wrap">
-      <canvas id="timelineChart" height="300"></canvas>
-    </div>
-  </section>
 
   <!-- FULL TABLE -->
   <section id="table" class="section">
@@ -816,8 +795,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Warning cards
   buildAlertCards('warning-cards', data.filter(r => r.risk_level === 'WARNING').sort((a,b) => a.days_until_expiry - b.days_until_expiry), 'warning');
 
-  // Timeline chart
-  buildTimelineChart(data);
 
   // Table
   applyFilters();
@@ -873,78 +850,6 @@ function buildAlertCards(containerId, items, type) {
   }).join('');
 }
 
-// ============================================================
-// TIMELINE CHART
-// ============================================================
-function buildTimelineChart(data) {
-  const monthly = {};
-  data.forEach(r => {
-    const m = r.expiry_date.slice(0, 7);
-    if (!monthly[m]) monthly[m] = { EXPIRED: 0, CRITICAL: 0, WARNING: 0, OK: 0 };
-    monthly[m][r.risk_level] += r.qty_on_hand;
-  });
-
-  // Show relevant months
-  const today = '2026-04';
-  const allMonths = Object.keys(monthly).sort().filter(m => m >= '2026-04').slice(0, 24);
-
-  const ctx = document.getElementById('timelineChart').getContext('2d');
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: allMonths.map(m => {
-        const [y, mo] = m.split('-');
-        const months = ['','Led','Úno','Bře','Dub','Kvě','Čvn','Čvc','Srp','Zář','Říj','Lis','Pro'];
-        return `${months[parseInt(mo)]} ${y}`;
-      }),
-      datasets: [
-        {
-          label: '⚫ Prošlé',
-          data: allMonths.map(m => monthly[m]?.EXPIRED || 0),
-          backgroundColor: '#6b7280',
-          borderRadius: 3,
-        },
-        {
-          label: '🔴 Kritické',
-          data: allMonths.map(m => monthly[m]?.CRITICAL || 0),
-          backgroundColor: '#ef4444',
-          borderRadius: 3,
-        },
-        {
-          label: '🟡 Varování',
-          data: allMonths.map(m => monthly[m]?.WARNING || 0),
-          backgroundColor: '#f59e0b',
-          borderRadius: 3,
-        },
-        {
-          label: '🟢 V pořádku',
-          data: allMonths.map(m => monthly[m]?.OK || 0),
-          backgroundColor: '#22c55e',
-          borderRadius: 3,
-        },
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: true,
-      plugins: {
-        legend: { position: 'top' },
-        tooltip: {
-          callbacks: {
-            label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString('cs')} ks`
-          }
-        }
-      },
-      scales: {
-        x: { stacked: true },
-        y: {
-          stacked: true,
-          ticks: { callback: v => v.toLocaleString('cs') }
-        }
-      }
-    }
-  });
-}
 
 // ============================================================
 // TABLE
@@ -1257,7 +1162,7 @@ function toggleSidebar() {
 
 // Highlight active nav link on scroll
 window.addEventListener('scroll', () => {
-  const sections = ['kpi','critical','warning','timeline','table','actions','bundles'];
+  const sections = ['kpi','critical','warning','table','actions','bundles'];
   const links = document.querySelectorAll('.sidebar-nav a');
   let current = '';
   sections.forEach(id => {
